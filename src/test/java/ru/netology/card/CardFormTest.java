@@ -14,6 +14,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static org.openqa.selenium.Keys.HOME;
 import static ru.netology.card.DataGenerator.generateDate;
 
 public class CardFormTest {
@@ -33,7 +34,7 @@ public class CardFormTest {
         var daysToAddForSecondMeeting = 7;
         var secondMeetingDate = generateDate(daysToAddForSecondMeeting);
         $("[data-test-id='city'] input").setValue(validUser.getCity());
-        $("[placeholder='Дата встречи']").sendKeys(Keys.COMMAND + "a");
+        $("[placeholder='Дата встречи']").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
         $("[placeholder='Дата встречи']").sendKeys(Keys.BACK_SPACE);
         String planningDate = generateDate(daysToAddForFirstMeeting);
         $("[placeholder='Дата встречи']").setValue(planningDate);
@@ -45,7 +46,7 @@ public class CardFormTest {
         $(".notification__content")
                 .shouldHave(Condition.text("Встреча успешно запланирована на " + planningDate), Duration.ofSeconds(15))
                 .shouldBe(Condition.visible);
-        $("[placeholder='Дата встречи']").sendKeys(Keys.COMMAND + "a");
+        $("[placeholder='Дата встречи']").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
         $("[placeholder='Дата встречи']").sendKeys(Keys.BACK_SPACE);
         String planningDate2 = generateDate(daysToAddForSecondMeeting);
         $("[placeholder='Дата встречи']").setValue(planningDate2);
